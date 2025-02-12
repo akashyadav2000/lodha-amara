@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #023020;
+}
+
+.green-border {
+  border-color: #59a68b;
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+/* Set custom font for the entire project */
+body {
+  font-family: "Arial", "Helvetica", sans-serif;
+}
+
+/* Set box-sizing to border-box for all elements */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Add custom classes */
+
+.text-ms {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.text-muted-foreground {
+  color: hsl(var(--muted-foreground));
+}
+
+.to-primary60 {
+  --tw-gradient-to: hsl(var(var(--color-primary) / 0.6));
+}
+
+.text-muted-foreground {
+  color: #555e5b;
+}
+
+.text-primary-foreground {
+  color: #fff;
+}
+
+.bg-black-50 {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.bg-black-60 {
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+}
+
+/* .transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+} */

@@ -1,0 +1,72 @@
+/* Infinite Text Size Animation */
+@keyframes textSize {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.animate-textSize {
+  display: inline-flex;
+  align-items: center;
+  animation: textSize 2s infinite ease-in-out;
+}
+
+/* Shining Effect */
+@keyframes shine {
+  0% {
+    transform: translateX(-150%) rotate(-45deg);
+  }
+  100% {
+    transform: translateX(150%) rotate(-45deg);
+  }
+}
+
+.shine-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shine 3s infinite linear;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 1rem;
+}
+::-webkit-scrollbar-track {
+  background: #383838;
+}
+::-webkit-scrollbar-thumb {
+  background: #616161;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #858585;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.gradient-bg {
+  background: linear-gradient(to right, #d1dbd5, #7c8f87);
+  padding: 1rem;
+  border-radius: 10px; /* Rounded Corners */
+}
