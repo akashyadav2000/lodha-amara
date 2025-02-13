@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { PhoneCall, Loader2 } from "lucide-react"; // Loader2 for spinning effect
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import "./customPhoneInput.css"; // Import custom styles
 
 const Contact = ({ popupType, onFormSubmit }) => {
   const [formData, setFormData] = useState({
     name: "",
-    phone: "",
+    phoneNumber: "",  // Stores only phone number
+    countryCode: "+91",  // Default country code
     email: "",
     popupType: popupType || "defaultType",
   });
@@ -17,32 +19,44 @@ const Contact = ({ popupType, onFormSubmit }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handlePhoneChange = (value) => {
-    setFormData({ ...formData, phone: value });
+  const handlePhoneChange = (value, country) => {
+    setFormData({
+      ...formData,
+      phone: value.replace(`+${country.dialCode}`, "").trim(), // Store only the number
+      countryCode: country.dialCode, // Store country code separately
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Start loading effect
+    setLoading(true);
+
+    const fullPhoneNumber = formData.countryCode + formData.phoneNumber; // Combine both
 
     try {
       const response = await fetch("https://lodha-amara-backend.onrender.com/api/form", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, phone: fullPhoneNumber }), // Send full number
       });
 
       if (response.ok) {
-        setFormData({ name: "", phone: "", email: "", popupType }); // Reset form
+        setFormData({
+          name: "",
+          phoneNumber: "",
+          countryCode: "+91",
+          email: "",
+          popupType,
+        });
 
         if (onFormSubmit) {
-          onFormSubmit(); // Show Thank You popup
+          onFormSubmit();
         }
       }
     } catch (error) {
       console.error("Error:", error);
     } finally {
-      setLoading(false); // Stop loading effect
+      setLoading(false);
     }
   };
 
@@ -71,15 +85,31 @@ const Contact = ({ popupType, onFormSubmit }) => {
           className="w-full px-3 py-1 text-sm mt-4 rounded border border-gray-300 focus:border-primary focus:ring focus:ring-bg-primary outline-none shadow-sm"
         />
 
+
         <PhoneInput
           country={"in"}
-          value={formData.phone}
-          onChange={handlePhoneChange}
           enableSearch={true}
+          disableDropdown={false} // Allow country selection
+          disableCountryCode={true} // Hide country code
+          inputStyle={{ display: "none" }} // Hides the text input, only flag shows
+          buttonClass="phone-dropdown"
+          containerClass="phone-container"
+          onChange={(value, country) => {
+            setFormData((prev) => ({
+              ...prev,
+              countryCode: `+${country.dialCode}`,  // Save country code in state
+            }));
+          }}
+        />
+
+
+        <input
+          type="tel"
+          name="phoneNumber"
           placeholder="Enter phone number"
-          inputClass="!w-full !py-2 !pl-12 !border-gray-300 !rounded focus:!border-primary focus:!ring focus:!ring-bg-primary"
-          buttonClass="!border-none !bg-transparent focus:!border-primary focus:!ring focus:!ring-bg-primary"
-          containerClass="!w-full mt-4 text-sm shadow-sm"
+          value={formData.phoneNumber}
+          onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+          className="phone-input"
         />
 
         <input
@@ -94,8 +124,8 @@ const Contact = ({ popupType, onFormSubmit }) => {
         <button
           type="submit"
           className={`w-full py-2 mt-6 rounded-lg text-sm font-medium cursor-pointer transition ${loading
-              ? "bg-gray-300 text-gray-700 cursor-not-allowed"
-              : "bg-primary text-white"
+            ? "bg-gray-300 text-gray-700 cursor-not-allowed"
+            : "bg-primary text-white"
             } flex items-center justify-center gap-2`}
           disabled={loading}
         >
