@@ -61,79 +61,95 @@ const Contact = ({ enquiryType, onFormSubmit }) => {
   };
 
   return (
-    <div>
-      {/* Contact Form */}
-      <form onSubmit={handleSubmit}>
-        <h3 className="text-gray-900 font-semibold text-lg text-center">
-          Get The Best Quote
-        </h3>
+    <>
+      <div>
+        {/* Contact Form */}
+        <form onSubmit={handleSubmit}>
+          <h3 className="text-gray-900 font-semibold text-lg text-center">
+            Get The Best Quote
+          </h3>
 
-        <button
-          className="bg-primary text-white w-full flex items-center gap-2 justify-center py-3 mt-4 rounded-lg text-sm font-medium cursor-pointer"
-          type="button"
-        >
-          <PhoneCall size={16} className="text-white" />
-          Call Us: +91 96190 95795
-        </button>
+          <button
+            className="bg-primary text-white w-full flex items-center gap-2 justify-center py-3 mt-4 rounded-lg text-sm font-medium cursor-pointer"
+            type="button"
+          >
+            <PhoneCall size={16} className="text-white" />
+            Call Us: +91 96190 95795
+          </button>
 
-        <input
-          type="text"
-          name="name"
-          placeholder="Enter your name"
-          value={formData.name}
-          onChange={handleChange}
-          className="w-full px-3 py-1 text-sm mt-4 rounded border border-gray-300 focus:border-primary focus:ring focus:ring-bg-primary outline-none shadow-sm"
-        />
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter your name"
+            value={formData.name}
+            onChange={handleChange}
+            className="w-full px-3 py-1 h-9 text-sm mt-4 rounded border border-gray-300 focus:border-primary focus:ring focus:ring-bg-primary outline-none shadow-sm"
+          />
+
+          <div className="flex items-center border border-gray-300 rounded px-2 py-1 mt-4 h-9">
+            <div className=" flex items-center justify-center w-15 h-9">
+              <PhoneInput
+                country={"in"}
+                enableSearch={true}
+                disableDropdown={false} // Allow country selection
+                disableCountryCode={true} // Hide country code
+                inputStyle={{ display: "none" }} // Hides the text input, only flag shows
+                buttonClass="phone-dropdown"
+                containerClass="phone-container"
+                onChange={(value, country) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    countryCode: `+${country.dialCode}`,  // Save country code in state
+                  }));
+                }}
+
+                inputClass="phone-input"
+                searchClass="phone-search"
+                dropdownClass="phone-dropdown-list"
+              />
+
+            </div>
 
 
-        <PhoneInput
-          country={"in"}
-          enableSearch={true}
-          disableDropdown={false} // Allow country selection
-          disableCountryCode={true} // Hide country code
-          inputStyle={{ display: "none" }} // Hides the text input, only flag shows
-          buttonClass="phone-dropdown"
-          containerClass="phone-container"
-          onChange={(value, country) => {
-            setFormData((prev) => ({
-              ...prev,
-              countryCode: `+${country.dialCode}`,  // Save country code in state
-            }));
-          }}
-        />
 
+            <input
+              type="tel"
+              name="phoneNumber"
+              placeholder="Enter phone number"
+              value={formData.phoneNumber}
+              onChange={(e) =>
+                setFormData({ ...formData, phoneNumber: e.target.value.replace(/\D/g, "") }) // Allow only numbers
+              }
+              inputMode="numeric"
+              pattern="[0-9]*"
+              className="w-full outline-none text-sm h-9"
+            />
 
-        <input
-          type="tel"
-          name="phoneNumber"
-          placeholder="Enter phone number"
-          value={formData.phoneNumber}
-          onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-          className="phone-input"
-        />
+          </div>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter your email (optional)"
-          value={formData.email}
-          onChange={handleChange}
-          className="w-full px-3 py-1 text-sm mt-4 rounded border border-gray-300 focus:border-primary focus:ring focus:ring-bg-primary outline-none shadow-sm"
-        />
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email (optional)"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full px-3 py-1 text-sm mt-4 rounded border border-gray-300 focus:border-primary focus:ring focus:ring-bg-primary outline-none shadow-sm h-9"
+          />
 
-        <button
-          type="submit"
-          className={`w-full py-2 mt-6 rounded-lg text-sm font-medium cursor-pointer transition ${loading
-            ? "bg-gray-300 text-gray-700 cursor-not-allowed"
-            : "bg-primary text-white"
-            } flex items-center justify-center gap-2`}
-          disabled={loading}
-        >
-          {loading && <Loader2 size={18} className="animate-spin" />}
-          Submit
-        </button>
-      </form>
-    </div>
+          <button
+            type="submit"
+            className={`w-full py-2 mt-6 rounded-lg text-sm font-medium cursor-pointer transition ${loading
+              ? "bg-gray-300 text-gray-700 cursor-not-allowed"
+              : "bg-primary text-white"
+              } flex items-center justify-center gap-2`}
+            disabled={loading}
+          >
+            {loading && <Loader2 size={18} className="animate-spin" />}
+            Submit
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 
