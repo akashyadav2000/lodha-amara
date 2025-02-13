@@ -30,17 +30,17 @@ const SiteFloorPlan = ({ openModal }) => {
       </div>
 
       {/* Master Plan Image */}
-      <div className="w-full mb-8">
+      <div className=" mb-8">
         <h2 className="text-gray-900 font-bold text-xl mb-4">Master Plan</h2>
         <div
-          className="w-[672px] h-[378px] relative mt-4 mx-auto cursor-pointer overflow-hidden rounded-lg flex items-center justify-center group"
+          className="w-full max-w-[672px] aspect-[16/9] relative mt-4 mx-auto cursor-pointer overflow-hidden rounded-lg flex items-center justify-center group"
           onClick={() => setIsModalOpen(true)}
         >
           {/* Master Plan Image */}
           <img
             src="/master-plan.webp"
             alt="Master Plan"
-            className="w-auto h-auto object-cover transition-all duration-500 group-hover:scale-105 group-hover:blur-[3px]"
+            className="w-full h-auto object-cover transition-all duration-500 group-hover:scale-105 group-hover:blur-[3px]"
           />
 
           {/* Dark Overlay (Always Visible) */}

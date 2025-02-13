@@ -73,51 +73,61 @@ function Layout() {
 
   return (
     <div className="relative min-h-screen">
+      {/* Header (Fixed) */}
       <div className="fixed top-0 left-0 w-full z-50">
         <Header openModal={openModal} />
       </div>
 
-      <div className="fixed right-0 w-[22.45%] h-auto">
-        <RightContactSection openModal={openModal} popupType={popupType} onFormSubmit={handleFormSubmit} />
+      {/* Main Layout (Flex/Grid for Responsive Adjustment) */}
+      <div className="flex flex-col mt-14 lg:flex-row">
+        {/* Left Content (Landing Page & Other Sections) */}
+        <div className="w-full lg:w-[77.55%]">
+          <Element name="home" id="home" className="scroll-section">
+            <LandingPage openModal={openModal} />
+          </Element>
 
-      </div>
-
-
-      <div className="mt-14 ml-0 w-[77.55%]">
-
-        <Element name="home" id="home" className="scroll-section">
-          <LandingPage openModal={openModal} />
-        </Element>
-        <Element name="pricing" id="pricing" className="scroll-section">
-          <PriceSection openModal={openModal} />
-        </Element>
-        <Element name="site-floor-plan" id="site-floor-plan" className="scroll-section">
-          <SiteFloorPlan openModal={openModal} />
-        </Element>
-        <Element name="amenities" id="amenities" className="scroll-section">
-          <Amenities openModal={openModal} />
-        </Element>
-        <Element name="gallery" id="gallery" className="scroll-section">
-          <Gallery openModal={openModal} />
-        </Element>
-        <Element name="location" id="location" className="scroll-section">
-          <Location openModal={openModal} />
-        </Element>
-        <Element name="site-visit" id="site-visit" className="scroll-section">
-          <VirtualTour openModal={openModal} />
-        </Element>
-
-        {showThankYou && (
-          <div className="fixed inset-0 w-[77.55%] z-11 flex items-center justify-center min-h-screen bg-white p-4">
-            <ThankYou />
+          {/* Show RightContactSection BELOW LandingPage on `md` screens */}
+          <div className="block lg:hidden w-full">
+            <RightContactSection openModal={openModal} popupType={popupType} onFormSubmit={handleFormSubmit} />
           </div>
-        )}
 
-        <Footer />
+          <Element name="pricing" id="pricing" className="scroll-section">
+            <PriceSection openModal={openModal} />
+          </Element>
+          <Element name="site-floor-plan" id="site-floor-plan" className="scroll-section">
+            <SiteFloorPlan openModal={openModal} />
+          </Element>
+          <Element name="amenities" id="amenities" className="scroll-section">
+            <Amenities openModal={openModal} />
+          </Element>
+          <Element name="gallery" id="gallery" className="scroll-section">
+            <Gallery openModal={openModal} />
+          </Element>
+          <Element name="location" id="location" className="scroll-section">
+            <Location openModal={openModal} />
+          </Element>
+          <Element name="site-visit" id="site-visit" className="scroll-section">
+            <VirtualTour openModal={openModal} />
+          </Element>
+
+          {showThankYou && (
+            <div className="fixed inset-0 w-full z-11 flex items-center justify-center min-h-screen bg-white p-4">
+              <ThankYou />
+            </div>
+          )}
+
+          <Footer />
+        </div>
+
+        {/* RightContactSection (Only Visible on Large Screens) */}
+        <div className="hidden lg:block fixed right-0 w-[22.45%] h-auto">
+          <RightContactSection openModal={openModal} popupType={popupType} onFormSubmit={handleFormSubmit} />
+        </div>
       </div>
 
       <PopUp isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} popupType={popupType} />
     </div>
+
   );
 }
 

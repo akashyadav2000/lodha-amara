@@ -26,7 +26,7 @@ const LandingPage = () => {
 
   return (
     <div className="relative w-full overflow-hidde">
-      {/* Image Slider Container with Aspect Ratio */}
+      {/* Image Slider Container */}
       <div className="relative w-full pb-[60.25%]"> {/* 16:9 Aspect Ratio (9/16 = 0.5625 or 56.25%) */}
         {banners.map((src, index) => (
           <img
@@ -39,8 +39,8 @@ const LandingPage = () => {
         ))}
       </div>
 
-      {/* Information Box */}
-      <div className="absolute left-4 top-4 w-63 px-4 py-2 bg-white rounded-lg shadow-lg">
+      {/* Information Box (Responsive) */}
+      <div className="w-full static mt-4 px-4 py-2 bg-white rounded-lg shadow-lg lg:absolute lg:left-4 lg:top-4 lg:w-63 lg:mt-0">
         <span className="absolute left-0 top-0 pl-4 w-full text-sm bg-primary text-white font-semibold py-2 rounded-t-md">
           Booking Open
         </span>
@@ -63,7 +63,6 @@ const LandingPage = () => {
         </div>
 
         <div className="relative gradient-bg p-3 rounded-md mt-4 shine-container overflow-hidden">
-          {/* Shining Effect */}
           <div className="shine-effect"></div>
 
           <ul className="space-y-1 relative z-1">
@@ -82,7 +81,6 @@ const LandingPage = () => {
           </div>
         </div>
 
-        {/* Button with Popup Trigger */}
         <button
           className="bg-primary text-white w-full py-2 mt-2 mb-1 rounded-md text-sm font-medium cursor-pointer"
           onClick={() => handleOpenPopup("site-visit")}
@@ -90,6 +88,7 @@ const LandingPage = () => {
           Book A Free Site Visit
         </button>
       </div>
+
 
       {/* PopUp Component */}
       <PopUp isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} popupType={popupType} />
