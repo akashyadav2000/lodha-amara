@@ -66,7 +66,7 @@ const LandingPage = () => {
           {/* Shining Effect */}
           <div className="shine-effect"></div>
 
-          <ul className="space-y-1 relative z-10">
+          <ul className="space-y-1 relative z-1">
             <li className="text-sm text-primary">• Spot Booking Offers</li>
             <li className="text-sm text-primary">• Avail Festival Offers</li>
             <li className="text-sm text-primary">• Zero Stamp Duty Benefit</li>

@@ -53,7 +53,7 @@ const PopUp = ({ isOpen, onClose, popupType }) => {
       <div className="bg-white w-220 flex rounded-lg shadow-lg overflow-hidden border-[1px] green-border">
 
         {/* Left Section */}
-        <div className="w-1/2 relative flex flex-col text-white p-6 bg-cover bg-center before:content-[''] before:absolute before:inset-0 before:bg-black/80"
+        <div className="hidden md:flex w-1/2 relative flex-col text-white p-6 bg-cover bg-center before:content-[''] before:absolute before:inset-0 before:bg-black/80"
           style={{ backgroundImage: "url('/banner-1.png')" }}>
 
           {/* Lodha Logo */}
@@ -100,7 +100,7 @@ const PopUp = ({ isOpen, onClose, popupType }) => {
         </div>
 
         {/* Right Section */}
-        <div className="w-1/2 p-6 bg-[#e5fff6] relative">
+        <div className="w-full md:w-1/2 p-6 bg-[#e5fff6] relative">
           {/* Close Button */}
           <button onClick={onClose} className="absolute top-3 right-3 text-gray-600 text-2xl">
             <CircleX className="h-8 w-8" />
