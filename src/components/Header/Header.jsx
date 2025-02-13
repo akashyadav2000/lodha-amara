@@ -79,7 +79,7 @@ const Header = ({ openModal }) => {
       </div>
 
       {menuOpen && (
-        <div className="absolute top-14 right-0 w-[250px] bg-white shadow-lg rounded-md p-4 flex flex-col space-y-4">
+        <div className="absolute top-14 right-0 w-[250px] bg-white shadow-lg border green-border rounded-md p-6 flex flex-col space-y-4">
           {[
             { id: "home", label: "Home", icon: <HomeIcon size={16} /> },
             { id: "pricing", label: "Price", icon: <IndianRupee size={16} /> },
