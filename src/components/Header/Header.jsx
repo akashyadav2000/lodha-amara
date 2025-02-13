@@ -19,11 +19,11 @@ const Header = ({ openModal }) => {
 
   return (
     <nav className="fixed top-0 left-0 w-full flex items-center justify-between bg-white shadow-md h-14 border-b px-4 z-50">
-      <div className="flex items-center space-x-6">
+      <div className="flex items-center space-x-5">
         <img src="/logo.svg" alt="Lodha Preferred Partner" className="h-11 w-auto" />
 
         {/* Navigation Links */}
-        <ul className="flex space-x-6 text-primary text-sm font-medium max-xl:space-x-4">
+        <ul className="flex space-x-4 text-primary text-sm font-medium max-xl:space-x-0">
 
 
           {[
@@ -44,15 +44,12 @@ const Header = ({ openModal }) => {
                 spy={true}
                 isDynamic={true}
                 onClick={() => navigate(`#${item.id}`, { replace: true })}
-                className={`flex items-center px-2 py-1 rounded-md space-x-2 transition-all duration-300 
-    ${activePath === item.id
-                    ? "bg-[#0230201e] text-primary "
-                    : "text-primary"
-                  }
-    hover:bg-[#0230201e] hover:text-primary`}
+                className={`flex items-center justify-center gap-1 px-2 py-1 rounded-md transition-all duration-300 
+                ${activePath === item.id ? "bg-[#0230201e] text-primary" : "text-primary"}
+                hover:bg-[#0230201e] hover:text-primary`}
               >
                 {item.icon}
-                <span>{item.label}</span>
+                <span className="text-sm">{item.label}</span>
               </Link>
 
               {/* Underline for active link */}
@@ -61,6 +58,7 @@ const Header = ({ openModal }) => {
                   }`}
               />
             </li>
+
           ))}
         </ul>
       </div>
