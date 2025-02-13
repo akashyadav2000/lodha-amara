@@ -49,7 +49,7 @@ const PopUp = ({ isOpen, onClose, popupType }) => {
   const { title, description, buttonText, icon } = getPopupContent();
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/80 z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/80 z-5">
       <div className="bg-white w-220 flex rounded-lg shadow-lg overflow-hidden border-[1px] green-border">
 
         {/* Left Section */}

@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import Contact from "../Contact/Contact";
 
-const RightContactSection = ({ openModal, popupType }) => {
+const RightContactSection = ({ openModal, popupType, onFormSubmit }) => {
+
 
   return (
     <div className="h-full bg-white p-4 shadow-lg overflow-y-auto">
 
 
-      <Contact popupType={popupType} />
+      <Contact popupType={popupType} onFormSubmit={onFormSubmit} />
+
 
 
       {/* Site Visit Section */}

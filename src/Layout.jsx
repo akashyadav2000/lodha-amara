@@ -12,23 +12,28 @@ import Gallery from "./components/Gallery/Gallery";
 import Location from "./components/Location/Location";
 import VirtualTour from "./components/VirtualTour/VirtualTour";
 import Footer from "./components/Footer/Footer";
+import ThankYou from "./components/Contact/ThankYou";
 
 function Layout() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [popupType, setPopupType] = useState(""); // Stores the type of popup
+  const [popupType, setPopupType] = useState("");
+  const [showThankYou, setShowThankYou] = useState(false); // State for ThankYou visibility
   const navigate = useNavigate();
 
-  // Show popup after 2 seconds on render & page refresh
   useEffect(() => {
     const timer = setTimeout(() => {
-      setPopupType("welcome"); // Set default popup type
+      setPopupType("welcome");
       setIsModalOpen(true);
-    }, 2000); // 2-second delay
+    }, 2000);
 
-    return () => clearTimeout(timer); // Cleanup to prevent memory leaks
+    // useEffect(() => {
+    //   console.log("showThankYou state:", showThankYou);
+    // }, [showThankYou]);
+
+
+    return () => clearTimeout(timer);
   }, []);
 
-  // Intersection Observer for section-based navigation
   useEffect(() => {
     const sections = document.querySelectorAll(".scroll-section");
     const observerOptions = { root: null, rootMargin: "-50% 0px -50% 0px", threshold: 0 };
@@ -49,26 +54,37 @@ function Layout() {
     };
   }, [navigate]);
 
-  // Function to open the popup dynamically
   const openModal = (type) => {
     setPopupType(type);
     setIsModalOpen(true);
   };
 
+  // Function to handle form submission
+  const handleFormSubmit = () => {
+    console.log("Form submitted! Showing ThankYou popup...");
+    setShowThankYou(true);
+
+    setTimeout(() => {
+      console.log("Hiding ThankYou popup...");
+      setShowThankYou(false);
+    }, 10000);
+  };
+
+
   return (
     <div className="relative min-h-screen">
-      {/* Fixed Header */}
       <div className="fixed top-0 left-0 w-full z-50">
         <Header openModal={openModal} />
       </div>
 
-      {/* Fixed Right Contact Section */}
       <div className="fixed right-0 w-[22.45%] h-auto">
-        <RightContactSection openModal={openModal} />
+        <RightContactSection openModal={openModal} popupType={popupType} onFormSubmit={handleFormSubmit} />
+
       </div>
 
-      {/* Main Content */}
+
       <div className="mt-14 ml-0 w-[77.55%]">
+
         <Element name="home" id="home" className="scroll-section">
           <LandingPage openModal={openModal} />
         </Element>
@@ -90,10 +106,16 @@ function Layout() {
         <Element name="site-visit" id="site-visit" className="scroll-section">
           <VirtualTour openModal={openModal} />
         </Element>
+
+        {showThankYou && (
+          <div className="fixed inset-0 w-[77.55%] z-11 flex items-center justify-center min-h-screen bg-white p-4">
+            <ThankYou />
+          </div>
+        )}
+
         <Footer />
       </div>
 
-      {/* PopUp Component (Appears After 2 Seconds) */}
       <PopUp isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} popupType={popupType} />
     </div>
   );
