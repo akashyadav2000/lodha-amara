@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PhoneCall } from "lucide-react";
+import { PhoneCall, Loader2 } from "lucide-react"; // Loader2 for spinning effect
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
@@ -11,6 +11,8 @@ const Contact = ({ popupType, onFormSubmit }) => {
     popupType: popupType || "defaultType",
   });
 
+  const [loading, setLoading] = useState(false); // Track form submission state
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -21,6 +23,7 @@ const Contact = ({ popupType, onFormSubmit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading effect
 
     try {
       const response = await fetch("https://lodha-amara-backend.onrender.com/api/form", {
@@ -30,24 +33,21 @@ const Contact = ({ popupType, onFormSubmit }) => {
       });
 
       if (response.ok) {
-        setFormData({ name: "", phone: "", email: "", popupType }); // Reset form fields
+        setFormData({ name: "", phone: "", email: "", popupType }); // Reset form
 
         if (onFormSubmit) {
-          onFormSubmit(); // Trigger Thank You page
+          onFormSubmit(); // Show Thank You popup
         }
-      } else {
-        const result = await response.json();
-        alert(result.message);
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred while submitting the form.");
+    } finally {
+      setLoading(false); // Stop loading effect
     }
   };
 
   return (
     <div>
-
       {/* Contact Form */}
       <form onSubmit={handleSubmit}>
         <h3 className="text-gray-900 font-semibold text-lg text-center">
@@ -93,8 +93,13 @@ const Contact = ({ popupType, onFormSubmit }) => {
 
         <button
           type="submit"
-          className="bg-primary text-white w-full py-2 mt-6 rounded-lg text-sm font-medium cursor-pointer"
+          className={`w-full py-2 mt-6 rounded-lg text-sm font-medium cursor-pointer transition ${loading
+              ? "bg-gray-300 text-gray-700 cursor-not-allowed"
+              : "bg-primary text-white"
+            } flex items-center justify-center gap-2`}
+          disabled={loading}
         >
+          {loading && <Loader2 size={18} className="animate-spin" />}
           Submit
         </button>
       </form>
