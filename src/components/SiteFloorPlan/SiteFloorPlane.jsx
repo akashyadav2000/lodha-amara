@@ -115,13 +115,13 @@ const SiteFloorPlan = ({ openModal }) => {
                 <button
                   className="flex items-center gap-2 px-6 py-2 bg-white text-gray-900 font-medium rounded-lg shadow-md cursor-pointer"
                   onClick={() => {
-                    let popupType = "";
-                    if (plan.size.includes("446")) popupType = "enquire-1bhk";
-                    else if (plan.size.includes("618")) popupType = "enquire-2bhk-618";
-                    else if (plan.size.includes("722")) popupType = "enquire-2bhk-722";
-                    else if (plan.size.includes("958")) popupType = "enquire-3bhk";
+                    let enquiryType = "";
+                    if (plan.size.includes("446")) enquiryType = "enquire-1bhk";
+                    else if (plan.size.includes("618")) enquiryType = "enquire-2bhk-618";
+                    else if (plan.size.includes("722")) enquiryType = "enquire-2bhk-722";
+                    else if (plan.size.includes("958")) enquiryType = "enquire-3bhk";
 
-                    openModal(popupType);
+                    openModal(enquiryType);
                   }}
                 >
                   <Eye className="w-5 h-5 text-gray-900" />

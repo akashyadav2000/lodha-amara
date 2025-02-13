@@ -2,7 +2,7 @@ import { Car, Phone, CircleX, IndianRupee } from "lucide-react";
 import React, { useEffect } from "react";
 import Contact from "../Contact/Contact";
 
-const PopUp = ({ isOpen, onClose, popupType }) => {
+const PopUp = ({ isOpen, onClose, enquiryType }) => {
 
   useEffect(() => {
     if (isOpen) {
@@ -14,9 +14,9 @@ const PopUp = ({ isOpen, onClose, popupType }) => {
 
   if (!isOpen) return null;
 
-  // Dynamic Content Based on popupType
+  // Dynamic Content Based on enquiryType
   const getPopupContent = () => {
-    switch (popupType) {
+    switch (enquiryType) {
       case "download-brochure":
         return { title: "Download Brochure", description: "Download the brochure to learn more about Lodha Amara", buttonText: "Download" };
       case "site-visit":
@@ -113,7 +113,7 @@ const PopUp = ({ isOpen, onClose, popupType }) => {
 
           <div className=" bg-white p-6 shadow-lg">
 
-            <Contact popupType={popupType} />
+            <Contact enquiryType={enquiryType} />
 
 
           </div>

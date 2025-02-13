@@ -82,7 +82,7 @@ const PriceSection = ({ openModal }) => {
                   <td className="text-sm align-middle p-2">{plan.price}</td>
                   <td className="p-2">
                     <button className="text-xs px-3 bg-primary text-primary-foreground whitespace-nowrap gap-2 justify-center items-center h-8 inline-flex rounded-md cursor-pointer"
-                      onClick={() => openModal("price-breakup")} // Correct popupType
+                      onClick={() => openModal("price-breakup")} // Correct enquiryType
                     >
                       Price Breakup
                     </button>
@@ -115,7 +115,7 @@ const PriceSection = ({ openModal }) => {
               Download our detailed cost breakdown including all charges and payment plans.
             </p>
             <button className="text-primary-foreground text-sm font-medium py-2 px-4 bg-primary rounded-md justify-center items-center h-9 inline-flex cursor-pointer"
-              onClick={() => openModal("get-price-details")} // Correct popupType
+              onClick={() => openModal("get-price-details")} // Correct enquiryType
             >
               Get Price Details
             </button>

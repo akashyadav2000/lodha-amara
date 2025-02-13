@@ -16,13 +16,13 @@ import ThankYou from "./components/Contact/ThankYou";
 
 function Layout() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [popupType, setPopupType] = useState("");
+  const [enquiryType, setEnquiryType] = useState("");
   const [showThankYou, setShowThankYou] = useState(false); // State for ThankYou visibility
   const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setPopupType("welcome");
+      setEnquiryType("welcome");
       setIsModalOpen(true);
     }, 2000);
 
@@ -55,7 +55,7 @@ function Layout() {
   }, [navigate]);
 
   const openModal = (type) => {
-    setPopupType(type);
+    setEnquiryType(type);
     setIsModalOpen(true);
   };
 
@@ -88,7 +88,7 @@ function Layout() {
 
           {/* Show RightContactSection BELOW LandingPage on `md` screens */}
           <div className="block lg:hidden w-full">
-            <RightContactSection openModal={openModal} popupType={popupType} onFormSubmit={handleFormSubmit} />
+            <RightContactSection openModal={openModal} enquiryType={enquiryType} onFormSubmit={handleFormSubmit} />
           </div>
 
           <Element name="pricing" id="pricing" className="scroll-section">
@@ -121,11 +121,11 @@ function Layout() {
 
         {/* RightContactSection (Only Visible on Large Screens) */}
         <div className="hidden lg:block fixed right-0 w-[22.45%] h-auto">
-          <RightContactSection openModal={openModal} popupType={popupType} onFormSubmit={handleFormSubmit} />
+          <RightContactSection openModal={openModal} enquiryType={enquiryType} onFormSubmit={handleFormSubmit} />
         </div>
       </div>
 
-      <PopUp isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} popupType={popupType} />
+      <PopUp isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} enquiryType={enquiryType} />
     </div>
 
   );

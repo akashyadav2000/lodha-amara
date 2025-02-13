@@ -53,7 +53,7 @@ const Location = ({ openModal }) => {
               {/* Enquire Now Button (Appears on Hover) */}
               <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 <button className="flex items-center gap-2 px-6 py-2 bg-white text-gray-900 font-medium rounded-lg shadow-md cursor-pointer"
-                  onClick={() => openModal("get-location")} // Correct popupType
+                  onClick={() => openModal("get-location")} // Correct enquiryType
                 >
                   <MapPin className="w-5 h-5 text-gray-900" />
                   <span className="text-gray-900 text-sm">Get Location</span>

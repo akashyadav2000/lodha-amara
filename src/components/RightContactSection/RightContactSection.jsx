@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import Contact from "../Contact/Contact";
 
-const RightContactSection = ({ openModal, popupType, onFormSubmit }) => {
+const RightContactSection = ({ openModal, enquiryType, onFormSubmit }) => {
 
 
   return (
     <div className="h-full bg-white p-4 shadow-lg overflow-y-auto">
 
 
-      <Contact popupType={popupType} onFormSubmit={onFormSubmit} />
+      <Contact enquiryType={enquiryType} onFormSubmit={onFormSubmit} />
 
 
 

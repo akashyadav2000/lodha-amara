@@ -6,12 +6,12 @@ const banners = ["/banner-1.png", "/banner-2.png"]; // Image array for slideshow
 
 const LandingPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [popupType, setPopupType] = useState("");
+  const [enquiryType, setEnquiryType] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Open Popup Function
   const handleOpenPopup = (type) => {
-    setPopupType(type);
+    setEnquiryType(type);
     setIsModalOpen(true);
   };
 
@@ -91,7 +91,7 @@ const LandingPage = () => {
 
 
       {/* PopUp Component */}
-      <PopUp isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} popupType={popupType} />
+      <PopUp isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} enquiryType={enquiryType} />
     </div>
   );
 };

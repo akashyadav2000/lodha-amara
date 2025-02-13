@@ -4,13 +4,13 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "./customPhoneInput.css"; // Import custom styles
 
-const Contact = ({ popupType, onFormSubmit }) => {
+const Contact = ({ enquiryType, onFormSubmit }) => {
   const [formData, setFormData] = useState({
     name: "",
     phoneNumber: "",  // Stores only phone number
     countryCode: "+91",  // Default country code
     email: "",
-    popupType: popupType || "defaultType",
+    enquiryType: enquiryType || "defaultType",
   });
 
   const [loading, setLoading] = useState(false); // Track form submission state
@@ -46,7 +46,7 @@ const Contact = ({ popupType, onFormSubmit }) => {
           phoneNumber: "",
           countryCode: "+91",
           email: "",
-          popupType,
+          enquiryType,
         });
 
         if (onFormSubmit) {
