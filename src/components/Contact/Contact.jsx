@@ -65,7 +65,7 @@ const Contact = ({ enquiryType, onFormSubmit }) => {
       <div>
         {/* Contact Form */}
         <form onSubmit={handleSubmit}>
-          <h3 className="text-gray-900 font-semibold text-lg text-center">
+          {/* <h3 className="text-gray-900 font-semibold text-lg text-center">
             Get The Best Quote
           </h3>
 
@@ -75,7 +75,7 @@ const Contact = ({ enquiryType, onFormSubmit }) => {
           >
             <PhoneCall size={16} className="text-white" />
             Call Us: +91 96190 95795
-          </button>
+          </button> */}
 
           <input
             type="text"

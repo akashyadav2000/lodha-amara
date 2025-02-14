@@ -40,7 +40,7 @@ const LandingPage = () => {
       </div>
 
       {/* Information Box (Responsive) */}
-      <div className="w-full static mt-4 px-4 py-2 bg-white rounded-lg shadow-lg lg:absolute lg:left-4 lg:top-4 lg:w-63 lg:mt-0">
+      <div className="w-full static mt-4 px-4 py-2 bg-white rounded-lg  lg:absolute lg:left-4 lg:top-4 lg:w-63 lg:mt-0">
         <span className="absolute left-0 top-0 pl-4 w-full text-sm bg-primary text-white font-semibold py-2 rounded-t-md">
           Booking Open
         </span>
@@ -48,14 +48,30 @@ const LandingPage = () => {
         <h2 className="mt-10 text-2xl text-gray-900 font-bold">Lodha Amara</h2>
         <p className="text-sm text-gray-600">At Thane by Lodha Group</p>
 
-        <div className="mt-2 flex justify-between">
+        {/* <div className="mt-2 flex justify-between">
           <p className="text-sm font-semibold text-primary">Land Parcel</p>
           <p className="text-sm font-semibold text-primary">Floors</p>
         </div>
         <div className="flex justify-between">
           <p className="text-sm text-gray-600">40 Acres</p>
           <p className="text-sm text-gray-600">40 Storeys</p>
+        </div> */}
+
+
+        <div className="mt-2 flex">
+          {/* Left-aligned Land Parcel and 40 Acres */}
+          <div className="w-1/2">
+            <p className="text-sm font-semibold text-primary">Land Parcel</p>
+            <p className="text-sm text-gray-600">40 Acres</p>
+          </div>
+
+          {/* Center-aligned Floors and 40 Storeys */}
+          <div className="w-1/2 text-center">
+            <p className="text-sm font-semibold text-primary">Floors</p>
+            <p className="text-sm text-gray-600">40 Storeys</p>
+          </div>
         </div>
+
 
         <div className="mt-2">
           <p className="text-sm font-semibold text-primary">Possession</p>

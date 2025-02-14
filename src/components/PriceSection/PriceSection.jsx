@@ -5,21 +5,27 @@ const PriceSection = ({ openModal }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const pricingPlans = [
-    { type: "1 BHK", area: "446 Sq.ft.", price: "₹ 79 Lacs Onwards" },
-    { type: "2 BHK LUXE", area: "618 Sq.ft.", price: "₹ 1.05 Cr Onwards" },
-    { type: "2 BHK Deck", area: "666 Sq.ft.", price: "₹ 1.17 Cr Onwards" },
-    { type: "2 BHK Deck", area: "722 Sq.ft.", price: "₹ 1.26 Cr Onwards" },
-    { type: "3 BHK", area: "830 Sq.ft.", price: "₹ 1.57 Cr Onwards" },
-    { type: "3 BHK Deck", area: "958 Sq.ft.", price: "₹ 1.82 Cr Onwards" },
+    { type: "1 BHK", area: "446 Sq.ft.", price: "₹ 79 Lacs" },
+    { type: "2 BHK LUXE", area: "618 Sq.ft.", price: "₹ 1.05 Cr" },
+    { type: "2 BHK Deck", area: "666 Sq.ft.", price: "₹ 1.17 Cr" },
+    { type: "2 BHK Deck", area: "722 Sq.ft.", price: "₹ 1.26 Cr" },
+    { type: "3 BHK", area: "830 Sq.ft.", price: "₹ 1.57 Cr" },
+    { type: "3 BHK Deck", area: "958 Sq.ft.", price: "₹ 1.82 Cr" },
   ];
 
   return (
     <>
-      <div className="w-full pt-10 pl-12 pr-12 pb-12">
+      {/* <div className="w-full pt-10 pl-12 pr-12 pb-12"> */}
+      <div className="w-full p-6 lg:px-10 lg:pt-10 lg:pb-4">
+
+
         {/* Heading with line below */}
         {/* Heading with Dynamic Line Below */}
         <div className="w-fit">
-          <h1 className="text-4xl font-bold text-gray-900">Welcome To Lodha Amara Thane</h1>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
+            Welcome To Lodha Amara Thane
+          </h1>
+
           <div className="h-1 bg-primary mt-1 w-full"></div>
         </div>
 
@@ -45,83 +51,113 @@ const PriceSection = ({ openModal }) => {
         </div>
 
       </div>
-      <div className="px-10 py-4 ">
+      <div className=" py-4 px-6 lg:px-10">
         {/* Pricing Section with line below */}
         <div className="w-fit">
-          <h2 className="text-3xl font-bold text-gray-900 inline-block">Pricing Plans</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 inline-block">
+            Pricing Plans
+          </h2>
+
           <div className="h-1 bg-primary mt-1 w-full"></div>
         </div>
-
-
-
 
         {/* Updated Pricing Plan Description */}
         <p className="text-ms text-gray-600 text-justify mt-1">
           Choose from our range of luxurious 2, 3 & 4 BHK residences, each designed to offer the perfect blend of comfort and sophistication.
         </p>
 
-        {/* Pricing Table with Shadow */}
-        <div className="overflow-hidden rounded-lg shadow-md shadow-gray-300 mt-4 mb-8">
-          <table className="w-full border-collapse">
-            {/* Table Header without border */}
-            <thead className="">
-              <tr className="bg-gray-50 hover:bg-[#e7fdf5d6] transition-colors duration-300 bg-opacity-50">
-                <th className="font-semibold text-sm align-middle text-left px-2 h-10 text-muted-foreground">Type</th>
-                <th className="font-semibold text-sm align-middle text-left px-2 h-10 text-muted-foreground">Carpet Area</th>
-                <th className="font-semibold text-sm align-middle text-left px-2 h-10 text-muted-foreground">Price</th>
-                <th className="font-semibold text-sm align-middle text-left px-2 h-10 text-muted-foreground">Action</th>
-              </tr>
-            </thead>
-
-            {/* Table Body with only Top Border */}
-            <tbody>
-              {pricingPlans.map((plan, index) => (
-                <tr key={index} className="bg-white border-t-[1px] green-border  hover:bg-gray-50">
-                  <td className="text-sm align-middle p-2">{plan.type}</td>
-                  <td className="text-sm align-middle p-2">{plan.area}</td>
-                  <td className="text-sm align-middle p-2">{plan.price}</td>
-                  <td className="p-2">
-                    <button className="text-xs px-3 bg-primary text-primary-foreground whitespace-nowrap gap-2 justify-center items-center h-8 inline-flex rounded-md cursor-pointer"
-                      onClick={() => openModal("price-breakup")} // Correct enquiryType
-                    >
-                      Price Breakup
-                    </button>
-                  </td>
+        {/* Responsive Pricing Table */}
+        <div className="mt-4 mb-8">
+          <div className="hidden sm:block overflow-hidden rounded-lg shadow-md shadow-gray-300">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-gray-50 hover:bg-[#e7fdf5d6] transition-colors duration-300 bg-opacity-50">
+                  <th className="font-semibold text-sm align-middle text-left px-2 h-10 text-muted-foreground">Type</th>
+                  <th className="font-semibold text-sm align-middle text-left px-2 h-10 text-muted-foreground">Carpet Area</th>
+                  <th className="font-semibold text-sm align-middle text-left px-2 h-10 text-muted-foreground">Price</th>
+                  <th className="font-semibold text-sm align-middle text-left px-2 h-10 text-muted-foreground">Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {pricingPlans.map((plan, index) => (
+                  <tr key={index} className="bg-white border-t-[1px] green-border hover:bg-gray-50">
+                    <td className="text-sm align-middle p-2">{plan.type}</td>
+                    <td className="text-sm align-middle p-2">{plan.area}</td>
+                    <td className="text-sm align-middle p-2">{plan.price}<span className=" text-gray-500 pl-1"> Onwards</span></td>
+                    <td className="p-2">
+                      <button className="text-xs px-3 bg-primary text-primary-foreground whitespace-nowrap gap-2 justify-center items-center h-8 inline-flex rounded-md cursor-pointer"
+                        onClick={() => openModal("price-breakup")}>
+                        Price Breakup
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile Card View */}
+          <div className="sm:hidden space-y-4">
+            {pricingPlans.map((plan, index) => (
+              <div key={index} className=" rounded-lg shadow-lg p-4 grid grid-cols-2 ">
+
+                {/* Left Side: Type & Area */}
+                < div >
+                  <h3 className="font-semibold text-base text-gray-900">{plan.type}</h3>
+                  <p className="text-sm text-gray-600">{plan.area}</p>
+                </div>
+
+                {/* Right Side: Price, Onwards & Button */}
+                <div className="text-right">
+                  <p className="text-lg text-gray-900">{plan.price}</p>
+                  <p className="text-gray-500 text-sm">Onwards</p>
+                  <button
+                    className="mt-2 text-xs px-3 bg-primary text-primary-foreground whitespace-nowrap gap-2 justify-center items-center h-8 inline-flex rounded-md cursor-pointer"
+                    onClick={() => openModal("price-breakup")}
+                  >
+                    Price Breakup
+                  </button>
+                </div>
+
+              </div>
+            ))}
+          </div>
+
+        </div >
 
         {/* Costing Section */}
 
-        <div className=" p-6 rounded-lg mx-auto flex items-center gap-6  shadow-md shadow-gray-300">
-          {/* Costing Image (Initially Blurred, Clears on Hover + Black Overlay) */}
-          <div className="relative cursor-pointer overflow-hidden rounded-md group">
+        <div className="p-6 rounded-lg mx-auto flex items-center gap-6 shadow-md shadow-gray-300">
+          {/* Costing Image (Fixed Width, Hidden on Small Screens < 768px) */}
+          <div className="relative cursor-pointer overflow-hidden rounded-md group hidden md:block flex-shrink-0">
             <img
               src="/costing.webp"
               alt="Costing Details"
-              className="w-[280px] h-[210px] object-cover transition-all duration-500 blur-[1px] group-hover:blur-0 group-hover:scale-105"
+              className="w-[280px] min-w-[280px] h-[210px] object-cover transition-all duration-500 blur-[1px] group-hover:blur-0 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-black-60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </div>
 
           {/* Text & Button */}
-          <div>
+          <div className="md:text-left text-center flex flex-col items-center md:items-start">
             <h2 className="text-gray-900 font-semibold text-xl mb-2">
               Need Complete Costing Details?
             </h2>
             <p className="text-gray-600 mb-4 text-base">
               Download our detailed cost breakdown including all charges and payment plans.
             </p>
-            <button className="text-primary-foreground text-sm font-medium py-2 px-4 bg-primary rounded-md justify-center items-center h-9 inline-flex cursor-pointer"
+            <button
+              className="text-primary-foreground text-sm font-medium py-2 px-4 bg-primary rounded-md justify-center items-center h-9 inline-flex cursor-pointer"
               onClick={() => openModal("get-price-details")} // Correct enquiryType
             >
               Get Price Details
             </button>
           </div>
+
         </div>
-      </div>
+
+
+      </div >
     </>
   );
 };

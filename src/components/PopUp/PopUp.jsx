@@ -1,4 +1,4 @@
-import { Car, Phone, CircleX, IndianRupee } from "lucide-react";
+import { Car, Phone, CircleX, IndianRupee, PhoneCall } from "lucide-react";
 import React, { useEffect } from "react";
 import Contact from "../Contact/Contact";
 
@@ -112,6 +112,17 @@ const PopUp = ({ isOpen, onClose, enquiryType }) => {
           {/* Quote Form */}
 
           <div className=" bg-white p-6 shadow-lg">
+            <h3 className="text-gray-900 font-semibold text-lg text-center">
+              Get The Best Quote
+            </h3>
+
+            <button
+              className="bg-primary text-white w-full flex items-left gap-2 justify-left px-3 py-3 mt-4 rounded-lg text-sm font-medium cursor-pointer"
+              type="button"
+            >
+              <PhoneCall size={16} className="text-primary bg-white rounded-full h-5  w-5 p-1" />
+              Call Us: +91 96190 95795
+            </button>
 
             <Contact enquiryType={enquiryType} />
 

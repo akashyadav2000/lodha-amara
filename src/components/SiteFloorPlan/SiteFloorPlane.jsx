@@ -95,8 +95,9 @@ const SiteFloorPlan = ({ openModal }) => {
 
 
       {/* Floor Plans Grid */}
-      {/* Floor Plans Grid */}
-      <div className="grid grid-cols-3 gap-4 w-full">
+      {/* <div className="grid grid-cols-3 gap-4 w-full"> */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 w-full">
+
         {filteredPlans.map((plan) => (
           <div key={plan.id} className="flex flex-col shadow-lg rounded-lg overflow-hidden h-auto group cursor-pointer">
             <div className="relative overflow-hidden">
