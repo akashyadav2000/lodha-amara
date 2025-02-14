@@ -16,7 +16,7 @@ const PriceSection = ({ openModal }) => {
   return (
     <>
       {/* <div className="w-full pt-10 pl-12 pr-12 pb-12"> */}
-      <div className="w-full p-6 lg:px-10 lg:pt-10 lg:pb-4">
+      <div className="w-full p-4 lg:px-10 lg:pt-10 lg:pb-4">
 
 
         {/* Heading with line below */}
@@ -51,7 +51,7 @@ const PriceSection = ({ openModal }) => {
         </div>
 
       </div>
-      <div className=" py-4 px-6 lg:px-10">
+      <div className=" lg:px-10 lg:py-8 p-4">
         {/* Pricing Section with line below */}
         <div className="w-fit">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 inline-block">

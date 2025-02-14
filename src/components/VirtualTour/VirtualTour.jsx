@@ -17,11 +17,12 @@ const VirtualTour = ({ openModal }) => {
 
   return (
     <>
-      <div className="px-10 py-8">
+      <div className="lg:px-10 lg:py-8 p-4">
+
 
         <div className="w-fit">
 
-          <h2 className="text-gray-900 text-3xl font-bold">Virtual Tour Request</h2>
+          <h2 className="text-gray-900 text-2xl sm:text-3xl font-bold">Virtual Tour Request</h2>
           <div className="h-1 bg-primary mt-1 w-full"></div>
         </div>
 
@@ -42,19 +43,27 @@ const VirtualTour = ({ openModal }) => {
 
           {/* Overlay Content */}
           <div className="absolute inset-0 flex flex-col justify-center items-center bg-black/40 text-white">
-            <div className="w-20 h-20 bg-white/30 rounded-full flex items-center justify-center">
-              <Play className="w-12 h-12 text-white" />
+            {/* Play Button */}
+            <div className="w-16 h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 bg-white/30 rounded-full flex items-center justify-center">
+              <Play className="w-8 h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 text-white" />
             </div>
-            <span className="text-3xl font-bold mt-4">Virtual Tour</span>
-            <p className="text-xl text-white/90 font-bold text-center mt-1 px-4">
+
+            {/* Virtual Tour Text */}
+            <span className="text-xl lg:text-2xl xl:text-3xl font-bold mt-4">
+              Virtual Tour
+            </span>
+
+            {/* Description Text */}
+            <p className="text-base lg:text-lg xl:text-xl text-white/90 font-bold text-center mt-1 px-4">
               Experience Lodha Amara from the comfort of your home
             </p>
           </div>
+
         </div>
 
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-4 md:px-10 mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-4 md:px-10 mt-6 ">
         {features.map((feature, index) => (
           <div key={index} className="bg-gray-50 rounded-xl shadow-sm p-6">
             <h3 className="font-semibold text-lg text-gray-900">{feature.title}</h3>
@@ -63,7 +72,7 @@ const VirtualTour = ({ openModal }) => {
         ))}
       </div>
 
-      <div className="px-10 py-8">
+      <div className="lg:px-10 lg:py-8 p-4">
         <div className="flex justify-center mb-6">
           <img src={lodhaLogo} alt="Lodha Preferred Partner" className="h-14" />
         </div>
@@ -80,21 +89,16 @@ const VirtualTour = ({ openModal }) => {
           <h2 className="text-xl font-bold text-gray-900">RERA Information</h2>
 
           {/* Grid Layout for QR Codes */}
-          <div className="grid grid-cols-3 gap-8 mt-6 place-items-center w-full">
-            {reraImages.slice(0, 3).map((img, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6 place-items-center w-full">
+            {reraImages.map((img, index) => (
               <div key={index} className="text-center">
                 <img src={img.src} alt={`RERA ${img.number}`} className="w-28 h-28 mx-auto" />
                 <p className="text-gray-600 mt-2 text-[10px]">Rera No. {img.number}</p>
               </div>
             ))}
-
-            {/* 4th Image Positioned Below 1st Image */}
-            <div className="text-center col-start-1">
-              <img src={reraImages[3].src} alt={`RERA ${reraImages[3].number}`} className="w-28 h-28 mx-auto" />
-              <p className="text-gray-700 mt-2 text-sm">Rera No. {reraImages[3].number}</p>
-            </div>
           </div>
         </div>
+
 
 
 

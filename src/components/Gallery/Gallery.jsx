@@ -12,11 +12,11 @@ const Gallery = ({ openModal }) => {
   return (
     <>
       {/* Gallery Section */}
-      <div className="px-10 py-4 w-full">
+      <div className=" lg:px-10 lg:py-4 p-4 w-full">
         <div className="flex justify-between items-center">
 
           <div className="w-fit">
-            <h2 className="text-gray-900 text-3xl font-bold">Gallery</h2>
+            <h2 className="text-gray-900 text-2xl sm:text-3xl font-bold">Gallery</h2>
             <div className="h-1 bg-primary mt-1 w-full"></div>
           </div>
 
@@ -27,7 +27,7 @@ const Gallery = ({ openModal }) => {
           </button>
         </div>
         <p className="text-sm text-gray-600 mb-8 mt-1">Experience luxury living through our carefully curated spaces</p>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {galleryImages.map((img, index) => (
             <div key={index} className="relative overflow-hidden rounded-lg shadow-lg group">
               <img
@@ -40,6 +40,7 @@ const Gallery = ({ openModal }) => {
             </div>
           ))}
         </div>
+
       </div>
 
     </>

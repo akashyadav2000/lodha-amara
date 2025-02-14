@@ -14,18 +14,18 @@ const Location = ({ openModal }) => {
     <>
 
       {/* Location Section */}
-      <div className="px-10 py-4 bg-gey-50 ">
+      <div className=" lg:px-10 lg:py-4 p-4 bg-gey-50 ">
 
 
         <div className="w-fit">
-          <h2 className="text-gray-900 text-3xl font-bold">Location</h2>
+          <h2 className="text-gray-900 text-2xl sm:text-3xl font-bold">Location</h2>
           <div className="h-1 bg-primary mt-1 w-full"></div>
         </div>
 
         <p className="text-sm text-gray-600 mb-6 mt-1">Strategically located for your convenience</p>
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Map View */}
-          <div className="rounded-lg shadow-md">
+          <div className="rounded-lg shadow-md w-full">
             <h3 className="font-bold text-xl text-gray-900 mb-6">Map View</h3>
             <div className="relative w-full pb-[56.25%]"> {/* 16:9 Aspect Ratio */}
               <iframe
@@ -37,10 +37,9 @@ const Location = ({ openModal }) => {
           </div>
 
           {/* Location Details */}
-          <div className="rounded-lg shadow-md">
+          <div className="rounded-lg shadow-md w-full">
             <h3 className="font-bold text-xl text-gray-900 mb-6">Location Details</h3>
             <div className="relative overflow-hidden group cursor-pointer rounded-lg">
-              {/* Image with Blur and Scale Effect */}
               <img
                 src="/map.webp"
                 alt="Location Details"
@@ -52,8 +51,9 @@ const Location = ({ openModal }) => {
 
               {/* Enquire Now Button (Appears on Hover) */}
               <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <button className="flex items-center gap-2 px-6 py-2 bg-white text-gray-900 font-medium rounded-lg shadow-md cursor-pointer"
-                  onClick={() => openModal("get-location")} // Correct enquiryType
+                <button
+                  className="flex items-center gap-2 px-6 py-2 bg-white text-gray-900 font-medium rounded-lg shadow-md cursor-pointer"
+                  onClick={() => openModal("get-location")}
                 >
                   <MapPin className="w-5 h-5 text-gray-900" />
                   <span className="text-gray-900 text-sm">Get Location</span>
@@ -64,12 +64,13 @@ const Location = ({ openModal }) => {
         </div>
 
 
+
         {/* Nearby Landmarks Section */}
         <div className="mt-10">
-          <h2 className="font-bold text-xl text-gray-900  mb-4">Nearby Landmarks</h2>
-          <div className="grid grid-cols-2 gap-6">
+          <h2 className="font-bold text-xl text-gray-900 mb-4">Nearby Landmarks</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {landmarks.map((landmark, index) => (
-              <div key={index} className="flex items-center gap-y-4 gap-x-8">
+              <div key={index} className="flex items-center gap-x-4">
                 <MapPin className="text-primary w-5 h-5 ml-2" />
                 <div>
                   <p className="text-gray-900 text-base font-medium">{landmark.name}</p>
@@ -79,6 +80,7 @@ const Location = ({ openModal }) => {
             ))}
           </div>
         </div>
+
       </div>
     </>
   );

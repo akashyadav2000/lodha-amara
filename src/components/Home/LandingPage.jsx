@@ -41,11 +41,15 @@ const LandingPage = () => {
 
       {/* Information Box (Responsive) */}
       <div className="w-full static mt-4 px-4 py-2 bg-white rounded-lg  lg:absolute lg:left-4 lg:top-4 lg:w-63 lg:mt-0">
-        <span className="absolute left-0 top-0 pl-4 w-full text-sm bg-primary text-white font-semibold py-2 rounded-t-md">
+        {/* Booking Open Banner */}
+        <span className="w-full text-sm bg-primary text-white font-semibold py-2 rounded-t-md 
+  block mt-2 lg:absolute lg:top-0 lg:left-0 lg:pl-4">
           Booking Open
         </span>
 
-        <h2 className="mt-10 text-2xl text-gray-900 font-bold">Lodha Amara</h2>
+
+        <h2 className="mt-3 lg:mt-10 text-2xl text-gray-900 font-bold">Lodha Amara</h2>
+
         <p className="text-sm text-gray-600">At Thane by Lodha Group</p>
 
         {/* <div className="mt-2 flex justify-between">

@@ -18,12 +18,12 @@ const SiteFloorPlan = ({ openModal }) => {
       : floorPlans.filter((plan) => plan.type === selectedType);
 
   return (
-    <div className="w-full px-10 py-4 flex flex-col items-center">
+    <div className="w-full lg:px-10 lg:py-4 p-4 flex flex-col items-center">
       {/* Master Plan Section */}
       <div className="w-full pb-8">
 
         <div className="w-fit">
-          <h2 className="text-gray-900 text-3xl font-bold">Site & Floor Plan</h2>
+          <h2 className="text-gray-900 text-2xl sm:text-3xl font-bold">Site & Floor Plan</h2>
           <div className="h-1 bg-primary mt-1 w-full"></div>
         </div>
         <p className="text-sm text-gray-600 mt-1">Explore our thoughtfully designed layouts that maximize space and comfort</p>
@@ -96,10 +96,12 @@ const SiteFloorPlan = ({ openModal }) => {
 
       {/* Floor Plans Grid */}
       {/* <div className="grid grid-cols-3 gap-4 w-full"> */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 w-full">
-
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
         {filteredPlans.map((plan) => (
-          <div key={plan.id} className="flex flex-col shadow-lg rounded-lg overflow-hidden h-auto group cursor-pointer">
+          <div
+            key={plan.id}
+            className="flex flex-col shadow-lg rounded-lg overflow-hidden h-auto group cursor-pointer"
+          >
             <div className="relative overflow-hidden">
               {/* Image */}
               <img
@@ -138,6 +140,7 @@ const SiteFloorPlan = ({ openModal }) => {
           </div>
         ))}
       </div>
+
 
 
     </div>
