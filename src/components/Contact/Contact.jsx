@@ -42,7 +42,6 @@ const Contact = ({ enquiryType, onFormSubmit, required = false }) => {
       valid = false;
     }
 
-    // Email is optional but if provided should be valid
     if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Please enter a valid email address";
       valid = false;
@@ -55,8 +54,6 @@ const Contact = ({ enquiryType, onFormSubmit, required = false }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors({ ...errors, [name]: "" });
     }
@@ -68,8 +65,6 @@ const Contact = ({ enquiryType, onFormSubmit, required = false }) => {
       phoneNumber: value.replace(`+${country.dialCode}`, "").trim(),
       countryCode: `+${country.dialCode}`,
     });
-
-    // Clear phone error when user starts typing
     if (errors.phoneNumber) {
       setErrors({ ...errors, phoneNumber: "" });
     }
@@ -78,8 +73,9 @@ const Contact = ({ enquiryType, onFormSubmit, required = false }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validate form and return if invalid
     if (!validateForm()) {
-      return;
+      return; // This prevents form submission
     }
 
     setLoading(true);
