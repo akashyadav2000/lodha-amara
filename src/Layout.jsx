@@ -26,10 +26,6 @@ function Layout() {
       setIsModalOpen(true);
     }, 2000);
 
-    // useEffect(() => {
-    //   console.log("showThankYou state:", showThankYou);
-    // }, [showThankYou]);
-
 
     return () => clearTimeout(timer);
   }, []);
@@ -78,7 +74,6 @@ function Layout() {
         <Header openModal={openModal} />
       </div>
 
-      {/* Main Layout (Flex/Grid for Responsive Adjustment) */}
       <div className="flex flex-col mt-14 lg:flex-row">
         {/* Left Content (Landing Page & Other Sections) */}
         <div className="w-full lg:w-[77.55%]">
