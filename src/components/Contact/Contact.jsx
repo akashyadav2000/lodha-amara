@@ -1,43 +1,96 @@
 import React, { useState } from "react";
-import { PhoneCall, Loader2 } from "lucide-react"; // Loader2 for spinning effect
+import { PhoneCall, Loader2 } from "lucide-react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import "./customPhoneInput.css"; // Import custom styles
+import "./customPhoneInput.css";
 
-const Contact = ({ enquiryType, onFormSubmit }) => {
+const Contact = ({ enquiryType, onFormSubmit, required = false }) => {
   const [formData, setFormData] = useState({
     name: "",
-    phoneNumber: "",  // Stores only phone number
-    countryCode: "+91",  // Default country code
+    phoneNumber: "",
+    countryCode: "+91",
     email: "",
     enquiryType: enquiryType || "defaultType",
   });
 
-  const [loading, setLoading] = useState(false); // Track form submission state
+  const [errors, setErrors] = useState({
+    name: "",
+    phoneNumber: "",
+    email: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = {
+      name: "",
+      phoneNumber: "",
+      email: "",
+    };
+
+    if (required && !formData.name.trim()) {
+      newErrors.name = "Name is required";
+      valid = false;
+    }
+
+    if (required && !formData.phoneNumber) {
+      newErrors.phoneNumber = "Phone number is required";
+      valid = false;
+    } else if (required && formData.phoneNumber.length < 10) {
+      newErrors.phoneNumber = "Phone number must be at least 10 digits";
+      valid = false;
+    }
+
+    // Email is optional but if provided should be valid
+    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
+    }
   };
 
   const handlePhoneChange = (value, country) => {
     setFormData({
       ...formData,
-      phone: value.replace(`+${country.dialCode}`, "").trim(), // Store only the number
-      countryCode: country.dialCode, // Store country code separately
+      phoneNumber: value.replace(`+${country.dialCode}`, "").trim(),
+      countryCode: `+${country.dialCode}`,
     });
+
+    // Clear phone error when user starts typing
+    if (errors.phoneNumber) {
+      setErrors({ ...errors, phoneNumber: "" });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
     setLoading(true);
 
-    const fullPhoneNumber = formData.countryCode + formData.phoneNumber; // Combine both
+    const fullPhoneNumber = formData.countryCode + formData.phoneNumber;
 
     try {
       const response = await fetch("https://lodha-amara-backend.onrender.com/api/form", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, phone: fullPhoneNumber }), // Send full number
+        body: JSON.stringify({ ...formData, phone: fullPhoneNumber }),
       });
 
       if (response.ok) {
@@ -61,95 +114,94 @@ const Contact = ({ enquiryType, onFormSubmit }) => {
   };
 
   return (
-    <>
-      <div>
-        {/* Contact Form */}
-        <form onSubmit={handleSubmit}>
-          {/* <h3 className="text-gray-900 font-semibold text-lg text-center">
-            Get The Best Quote
-          </h3>
-
-          <button
-            className="bg-primary text-white w-full flex items-center gap-2 justify-center py-3 mt-4 rounded-lg text-sm font-medium cursor-pointer"
-            type="button"
-          >
-            <PhoneCall size={16} className="text-white" />
-            Call Us: +91 96190 95795
-          </button> */}
-
+    <div>
+      <form onSubmit={handleSubmit}>
+        {/* Name Field */}
+        <div className="mb-1">
           <input
             type="text"
             name="name"
             placeholder="Enter your name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full px-3 py-1 h-9 text-sm mt-4 rounded border border-gray-300 focus:border-primary focus:ring focus:ring-bg-primary outline-none shadow-sm"
+            className={`w-full px-3 py-1 h-9 text-sm mt-4 rounded border ${errors.name ? "border-red-500" : "border-gray-300"} focus:border-primary focus:ring focus:ring-bg-primary outline-none shadow-sm`}
+            required={required}
           />
+          {errors.name && (
+            <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+          )}
+        </div>
 
-          <div className="flex items-center border border-gray-300 rounded px-2 py-1 mt-4 h-9">
-            <div className=" flex items-center justify-center w-15 h-9">
+        {/* Phone Field */}
+        <div className="mb-1">
+          <div className={`flex items-center border ${errors.phoneNumber ? "border-red-500" : "border-gray-300"} rounded px-2 py-1 mt-4 h-9`}>
+            <div className="flex items-center justify-center w-15 h-9">
               <PhoneInput
                 country={"in"}
                 enableSearch={true}
-                disableDropdown={false} // Allow country selection
-                disableCountryCode={true} // Hide country code
-                inputStyle={{ display: "none" }} // Hides the text input, only flag shows
+                disableDropdown={false}
+                disableCountryCode={true}
+                inputStyle={{ display: "none" }}
                 buttonClass="phone-dropdown"
                 containerClass="phone-container"
-                onChange={(value, country) => {
-                  setFormData((prev) => ({
-                    ...prev,
-                    countryCode: `+${country.dialCode}`,  // Save country code in state
-                  }));
-                }}
-
+                onChange={handlePhoneChange}
                 inputClass="phone-input"
                 searchClass="phone-search"
                 dropdownClass="phone-dropdown-list"
               />
-
             </div>
-
-
-
             <input
               type="tel"
               name="phoneNumber"
               placeholder="Enter phone number"
               value={formData.phoneNumber}
-              onChange={(e) =>
-                setFormData({ ...formData, phoneNumber: e.target.value.replace(/\D/g, "") }) // Allow only numbers
-              }
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, "");
+                setFormData({ ...formData, phoneNumber: value });
+                if (errors.phoneNumber) {
+                  setErrors({ ...errors, phoneNumber: "" });
+                }
+              }}
               inputMode="numeric"
               pattern="[0-9]*"
               className="w-full outline-none text-sm h-9"
+              required={required}
+              maxLength="15"
             />
-
           </div>
+          {errors.phoneNumber && (
+            <p className="text-red-500 text-xs mt-1">{errors.phoneNumber}</p>
+          )}
+        </div>
 
+        {/* Email Field */}
+        <div className="mb-1">
           <input
             type="email"
             name="email"
             placeholder="Enter your email (optional)"
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-3 py-1 text-sm mt-4 rounded border border-gray-300 focus:border-primary focus:ring focus:ring-bg-primary outline-none shadow-sm h-9"
+            className={`w-full px-3 py-1 text-sm mt-4 rounded border ${errors.email ? "border-red-500" : "border-gray-300"} focus:border-primary focus:ring focus:ring-bg-primary outline-none shadow-sm h-9`}
           />
+          {errors.email && (
+            <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+          )}
+        </div>
 
-          <button
-            type="submit"
-            className={`w-full py-2 mt-6 rounded-lg text-sm font-medium cursor-pointer transition ${loading
+        <button
+          type="submit"
+          className={`w-full py-2 mt-6 rounded-lg text-sm font-medium cursor-pointer transition ${loading
               ? "bg-gray-300 text-gray-700 cursor-not-allowed"
               : "bg-primary text-white"
-              } flex items-center justify-center gap-2`}
-            disabled={loading}
-          >
-            {loading && <Loader2 size={18} className="animate-spin" />}
-            Submit
-          </button>
-        </form>
-      </div>
-    </>
+            } flex items-center justify-center gap-2`}
+          disabled={loading}
+        >
+          {loading && <Loader2 size={18} className="animate-spin" />}
+          Submit
+        </button>
+      </form>
+    </div>
   );
 };
 
