@@ -72,7 +72,7 @@ const PopUp = ({ isOpen, onClose, enquiryType }) => {
               </div>
             </div>
 
-            {/* Free Site Visit */}
+            {/* Free Site Visits */}
             <div className="flex items-center gap-4">
               <Car className="h-6 w-6 flex-shrink-0" />
               <div className="flex flex-col">
