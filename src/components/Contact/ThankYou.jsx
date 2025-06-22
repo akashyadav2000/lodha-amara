@@ -9,7 +9,7 @@ function ThankYou() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCountdown((prev) => {
-        if (prev <= 0) {
+        if (prev <= 1) {
           clearInterval(interval);
           navigate("/"); // Redirect to home page
           return 0;
@@ -39,8 +39,11 @@ function ThankYou() {
       {/* Progress Bar */}
       <div className="w-full h-1 bg-gray-300 mt-2 rounded-md overflow-hidden">
         <div
-          className="h-full bg-primary transition-all duration-1000 ease-linear"
-          style={{ width: `${(countdown / 5) * 100}%` }}
+          className="h-full bg-primary"
+          style={{
+            width: "100%",
+            animation: "shrink 5s linear forwards"
+          }}
         ></div>
       </div>
 
@@ -51,7 +54,7 @@ function ThankYou() {
         <House size={16} /> Back to Home
       </button>
 
-      <div className="mt-6 border-t pt-4 text-gray-600 text-sm p-3 bg-gray-100">
+      <div className="mt-6 pt-4 text-gray-600 text-sm p-3 bg-gray-100">
         <p>For immediate assistance, contact us at</p>
         <p className="text-primary font-bold text-lg">+91 96190 95795</p>
       </div>

@@ -2,7 +2,7 @@ import { Car, Phone, CircleX, IndianRupee, PhoneCall } from "lucide-react";
 import React, { useEffect } from "react";
 import Contact from "../Contact/Contact";
 
-const PopUp = ({ isOpen, onClose, enquiryType }) => {
+const PopUp = ({ isOpen, onClose, enquiryType, onFormSubmit }) => {
 
   useEffect(() => {
     if (isOpen) {
@@ -124,7 +124,7 @@ const PopUp = ({ isOpen, onClose, enquiryType }) => {
               Call Us: +91 96190 95795
             </button>
 
-            <Contact enquiryType={enquiryType} />
+            <Contact enquiryType={enquiryType} onFormSubmit={onFormSubmit} />
 
 
           </div>

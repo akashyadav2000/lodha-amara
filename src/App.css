@@ -70,3 +70,12 @@ html {
   padding: 1rem;
   border-radius: 10px; /* Rounded Corners */
 }
+
+@keyframes shrink {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
