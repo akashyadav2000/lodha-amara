@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import { PhoneCall, Loader2 } from "lucide-react"; // Loader2 for spinning effect
+import { Loader2 } from "lucide-react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import "./customPhoneInput.css"; // Import custom styles
+import "./customPhoneInput.css";
+import emailjs from "emailjs-com";
 
 const Contact = ({ enquiryType, onFormSubmit }) => {
   const [formData, setFormData] = useState({
     name: "",
-    phoneNumber: "",  // Stores only phone number
-    countryCode: "+91",  // Default country code
+    phoneNumber: "",
+    countryCode: "+91",
     email: "",
     enquiryType: enquiryType || "defaultType",
   });
 
-  const [loading, setLoading] = useState(false); // Track form submission state
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,8 +23,8 @@ const Contact = ({ enquiryType, onFormSubmit }) => {
   const handlePhoneChange = (value, country) => {
     setFormData({
       ...formData,
-      phone: value.replace(`+${country.dialCode}`, "").trim(), // Store only the number
-      countryCode: country.dialCode, // Store country code separately
+      phoneNumber: value.replace(`+${country.dialCode}`, "").trim(),
+      countryCode: `+${country.dialCode}`,
     });
   };
 
@@ -31,128 +32,145 @@ const Contact = ({ enquiryType, onFormSubmit }) => {
     e.preventDefault();
     setLoading(true);
 
-    const fullPhoneNumber = formData.countryCode + formData.phoneNumber; // Combine both
+    const fullPhoneNumber = formData.countryCode + formData.phoneNumber;
+
+    const templateParams = {
+      name: formData.name,
+      phone: fullPhoneNumber,
+      email: formData.email,
+      // enquiryType: formData.enquiryType,
+      enquiryType: getEnquiryLabel(formData.enquiryType),
+    };
 
     try {
-      const response = await fetch("https://lodha-amara-backend.onrender.com/api/form", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, phone: fullPhoneNumber }), // Send full number
+      const result = await emailjs.send(
+        "service_dmiptfv",     // 🔁 Replace with your EmailJS service ID
+        "template_no3c7uh",    // 🔁 Replace with your EmailJS template ID
+        templateParams,
+        "zY-h3O7sfR2I2C1Ne"      // 🔁 Replace with your EmailJS public key
+      );
+
+      console.log("SUCCESS!", result.text);
+
+      setFormData({
+        name: "",
+        phoneNumber: "",
+        countryCode: "+91",
+        email: "",
+        enquiryType,
       });
 
-      if (response.ok) {
-        setFormData({
-          name: "",
-          phoneNumber: "",
-          countryCode: "+91",
-          email: "",
-          enquiryType,
-        });
-
-        if (onFormSubmit) {
-          onFormSubmit();
-        }
+      if (onFormSubmit) {
+        onFormSubmit();
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("FAILED...", error);
     } finally {
       setLoading(false);
     }
   };
 
+  const getEnquiryLabel = (type) => {
+    switch (type) {
+      case "download-brochure":
+        return "Download Brochure";
+      case "site-visit":
+        return "Book Site Visit";
+      case "price-breakup":
+      case "get-price-details":
+        return "Request Price Breakup";
+      case "enquire-1bhk":
+        return "Enquiry About 1BHK";
+      case "enquire-2bhk-618":
+        return "Enquiry About 2BHK (618 sqft)";
+      case "enquire-2bhk-722":
+        return "Enquiry About 2BHK (722 sqft)";
+      case "enquire-3bhk":
+        return "Enquiry About 3BHK";
+      case "download-amenities":
+        return "Download Amenities";
+      case "download-gallery":
+        return "Download Gallery";
+      case "get-location":
+        return "Request Location";
+      case "request-virtual-tour":
+        return "Request Virtual Tour";
+      default:
+        return "General Inquiry";
+    }
+  };
+
+
   return (
-    <>
-      <div>
-        {/* Contact Form */}
-        <form onSubmit={handleSubmit}>
-          {/* <h3 className="text-gray-900 font-semibold text-lg text-center">
-            Get The Best Quote
-          </h3>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter your name"
+          required
+          value={formData.name}
+          onChange={handleChange}
+          className="w-full px-3 py-1 h-9 text-sm mt-4 rounded border border-gray-300 focus:border-primary focus:ring focus:ring-bg-primary outline-none shadow-sm"
+        />
 
-          <button
-            className="bg-primary text-white w-full flex items-center gap-2 justify-center py-3 mt-4 rounded-lg text-sm font-medium cursor-pointer"
-            type="button"
-          >
-            <PhoneCall size={16} className="text-white" />
-            Call Us: +91 96190 95795
-          </button> */}
-
-          <input
-            type="text"
-            name="name"
-            placeholder="Enter your name"
-            required
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full px-3 py-1 h-9 text-sm mt-4 rounded border border-gray-300 focus:border-primary focus:ring focus:ring-bg-primary outline-none shadow-sm"
-          />
-
-          <div className="flex items-center border border-gray-300 rounded px-2 py-1 mt-4 h-9">
-            <div className=" flex items-center justify-center w-15 h-9">
-              <PhoneInput
-                country={"in"}
-                enableSearch={true}
-                disableDropdown={false} // Allow country selection
-                disableCountryCode={true} // Hide country code
-                inputStyle={{ display: "none" }} // Hides the text input, only flag shows
-                buttonClass="phone-dropdown"
-                containerClass="phone-container"
-                onChange={(value, country) => {
-                  setFormData((prev) => ({
-                    ...prev,
-                    countryCode: `+${country.dialCode}`,  // Save country code in state
-                  }));
-                }}
-
-                inputClass="phone-input"
-                searchClass="phone-search"
-                dropdownClass="phone-dropdown-list"
-              />
-
-            </div>
-
-
-
-            <input
-              type="tel"
-              name="phoneNumber"
-              placeholder="Enter phone number"
-              required
-              value={formData.phoneNumber}
-              onChange={(e) =>
-                setFormData({ ...formData, phoneNumber: e.target.value.replace(/\D/g, "") }) // Allow only numbers
-              }
-              inputMode="numeric"
-              pattern="[0-9]*"
-              className="w-full outline-none text-sm h-9"
+        <div className="flex items-center border border-gray-300 rounded px-2 py-1 mt-4 h-9">
+          <div className=" flex items-center justify-center w-15 h-9">
+            <PhoneInput
+              country={"in"}
+              enableSearch={true}
+              disableDropdown={false}
+              disableCountryCode={true}
+              inputStyle={{ display: "none" }}
+              buttonClass="phone-dropdown"
+              containerClass="phone-container"
+              onChange={handlePhoneChange}
+              inputClass="phone-input"
+              searchClass="phone-search"
+              dropdownClass="phone-dropdown-list"
             />
-
           </div>
-
           <input
-            type="email"
-            name="email"
+            type="tel"
+            name="phoneNumber"
+            placeholder="Enter phone number"
             required
-            placeholder="Enter your email (optional)"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full px-3 py-1 text-sm mt-4 rounded border border-gray-300 focus:border-primary focus:ring focus:ring-bg-primary outline-none shadow-sm h-9"
+            value={formData.phoneNumber}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                phoneNumber: e.target.value.replace(/\D/g, ""),
+              })
+            }
+            inputMode="numeric"
+            pattern="[0-9]*"
+            className="w-full outline-none text-sm h-9"
           />
+        </div>
 
-          <button
-            type="submit"
-            className={`w-full py-2 mt-6 rounded-lg text-sm font-medium cursor-pointer transition ${loading
-              ? "bg-gray-300 text-gray-700 cursor-not-allowed"
-              : "bg-primary text-white"
-              } flex items-center justify-center gap-2`}
-            disabled={loading}
-          >
-            {loading && <Loader2 size={18} className="animate-spin" />}
-            Submit
-          </button>
-        </form>
-      </div>
-    </>
+        <input
+          type="email"
+          name="email"
+          required
+          placeholder="Enter your email (optional)"
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full px-3 py-1 text-sm mt-4 rounded border border-gray-300 focus:border-primary focus:ring focus:ring-bg-primary outline-none shadow-sm h-9"
+        />
+
+        <button
+          type="submit"
+          className={`w-full py-2 mt-6 rounded-lg text-sm font-medium cursor-pointer transition ${loading
+            ? "bg-gray-300 text-gray-700 cursor-not-allowed"
+            : "bg-primary text-white"
+            } flex items-center justify-center gap-2`}
+          disabled={loading}
+        >
+          {loading && <Loader2 size={18} className="animate-spin" />}
+          Submit
+        </button>
+      </form>
+    </div>
   );
 };
 

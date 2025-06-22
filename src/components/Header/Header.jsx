@@ -24,7 +24,7 @@ const Header = ({ openModal }) => {
     <nav className="fixed top-0 left-0 w-full flex items-center bg-white shadow-md h-14 border-b x-2 md:px-4 z-50">
       {/* Logo and Navigation Links */}
       <div className="flex items-center space-x-0 md:space-x-5">
-        <img src="/logo.svg" alt="Lodha Preferred Partner" className="h-8 md:h-11  w-auto" />
+        <img src="/logo.png" alt="Lodha Preferred Partner" className="h-8 md:h-11 pl-4 pr-2 sm:px-7  w-auto" />
 
         <ul className="flex space-x-4 text-primary text-sm font-medium max-xl:space-x-0 max-[1100px]:hidden">
           {[
@@ -74,7 +74,7 @@ const Header = ({ openModal }) => {
           className="hidden max-[1100px]:block text-primary text-sm font-medium px-2"
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          {menuOpen ? <X size={24} /> : <Menu size={16} />}
+          {menuOpen ? <X className="w-[100%]" /> : <Menu className="w-[100%]" />}
         </button>
       </div>
 

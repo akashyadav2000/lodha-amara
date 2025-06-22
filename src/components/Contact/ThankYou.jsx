@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function ThankYou() {
-  const [countdown, setCountdown] = useState(10);
+  const [countdown, setCountdown] = useState(5);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function ThankYou() {
       <div className="w-full h-1 bg-gray-300 mt-2 rounded-md overflow-hidden">
         <div
           className="h-full bg-primary transition-all duration-1000 ease-linear"
-          style={{ width: `${(countdown / 10) * 100}%` }}
+          style={{ width: `${(countdown / 5) * 100}%` }}
         ></div>
       </div>
 

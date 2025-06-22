@@ -13,12 +13,15 @@ const RightContactSection = ({ openModal, enquiryType, onFormSubmit }) => {
       </h3>
 
       <button
-        className="hidden lg:flex bg-primary text-white w-full items-left gap-2 justify-left px-3 py-3 mt-4 rounded-lg text-sm font-medium cursor-pointer "
+        className="hidden lg:flex bg-primary text-white w-full items-left gap-2 justify-left px-3 py-3 mt-4 rounded-lg text-sm font-medium cursor-pointer"
         type="button"
       >
-        <PhoneCall size={16} className="text-primary bg-white rounded-full h-5  w-5 p-1" />
-        Call Us: +91 96190 95795
+        <PhoneCall size={16} className="text-primary bg-white rounded-full h-5 w-5 p-1" />
+        <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+          Call Us: +91 96190 95795
+        </span>
       </button>
+
 
       <Contact enquiryType={enquiryType} onFormSubmit={onFormSubmit} />
 

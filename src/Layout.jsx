@@ -20,15 +20,16 @@ function Layout() {
   const [showThankYou, setShowThankYou] = useState(false); // State for ThankYou visibility
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setEnquiryType("welcome");
-      setIsModalOpen(true);
-    }, 2000);
+  // useEffect(() => {
+  //   // 👇 Popup on page load (disabled for now)
+  //   const timer = setTimeout(() => {
+  //     setEnquiryType("welcome");
+  //     setIsModalOpen(true);
+  //   }, 2000);
 
+  //   return () => clearTimeout(timer);
+  // }, []);
 
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const sections = document.querySelectorAll(".scroll-section");
@@ -63,7 +64,7 @@ function Layout() {
     setTimeout(() => {
       console.log("Hiding ThankYou popup...");
       setShowThankYou(false);
-    }, 10000);
+    }, 5000);
   };
 
 

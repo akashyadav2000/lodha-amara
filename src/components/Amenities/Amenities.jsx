@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ArrowLeft, ArrowRight, Download } from "lucide-react";
 
 const images = [
@@ -9,26 +9,67 @@ const images = [
 ];
 
 const Amenities = ({ openModal }) => {
-  const [index, setIndex] = useState(0);
-  const slides = [];
-
-  // Group images into sets of 6
+  const rawSlides = [];
   for (let i = 0; i < images.length; i += 6) {
-    slides.push(images.slice(i, i + 6));
+    rawSlides.push(images.slice(i, i + 6));
   }
+  const slides = [rawSlides[rawSlides.length - 1], ...rawSlides, rawSlides[0]]; // Add clones at both ends
+
+  const [index, setIndex] = useState(1); // Start at the first real slide
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const autoSlideRef = useRef(null);
+  const resumeTimeoutRef = useRef(null);
 
   const nextSlide = () => {
-    setIndex((prev) => (prev + 1) % slides.length);
+    setIndex((prev) => prev + 1);
+    setIsTransitioning(true);
+    pauseAutoSlide();
   };
 
   const prevSlide = () => {
-    setIndex((prev) => (prev - 1 + slides.length) % slides.length);
+    setIndex((prev) => prev - 1);
+    setIsTransitioning(true);
+    pauseAutoSlide();
+  };
+
+  const startAutoSlide = () => {
+    autoSlideRef.current = setInterval(() => {
+      setIndex((prev) => prev + 1);
+      setIsTransitioning(true);
+    }, 4000);
+  };
+
+  const pauseAutoSlide = () => {
+    clearInterval(autoSlideRef.current);
+    clearTimeout(resumeTimeoutRef.current);
+    resumeTimeoutRef.current = setTimeout(() => {
+      startAutoSlide();
+    }, 5000);
   };
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 4000);
-    return () => clearInterval(interval);
+    startAutoSlide();
+    return () => {
+      clearInterval(autoSlideRef.current);
+      clearTimeout(resumeTimeoutRef.current);
+    };
   }, []);
+
+  useEffect(() => {
+    if (index === slides.length - 1) {
+      // If we're at the last clone, instantly jump to the real first slide
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setIndex(1);
+      }, 700);
+    } else if (index === 0) {
+      // If we're at the first clone, instantly jump to the real last slide
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setIndex(slides.length - 2);
+      }, 700);
+    }
+  }, [index]);
 
   return (
     <div className="relative lg:px-10 lg:py-8 p-4 w-full overflow-hidden">
@@ -43,14 +84,13 @@ const Amenities = ({ openModal }) => {
             Discover a lifestyle enriched with premium amenities and facilities
           </p>
         </div>
-
-        <button className="bg-primary text-white font-medium text-sm px-4 py-2 rounded flex items-center justify-center cursor-pointer w-full sm:w-auto"
+        <button
+          className="bg-primary text-white font-medium text-sm px-4 py-2 rounded flex items-center justify-center cursor-pointer w-full sm:w-auto"
           onClick={() => openModal("download-amenities")}
         >
           <Download className="w-5 h-5" /> Download Amenities
         </button>
       </div>
-
 
       {/* Title */}
       <div className="text-center mb-8">
@@ -61,7 +101,7 @@ const Amenities = ({ openModal }) => {
       {/* Slider */}
       <div className="relative w-full overflow-hidden">
         <div
-          className="flex transition-transform duration-700 ease-in-out"
+          className={`flex ${isTransitioning ? 'transition-transform duration-700 ease-in-out' : ''}`}
           style={{ transform: `translateX(-${index * 100}%)` }}
         >
           {slides.map((slide, i) => (
@@ -90,22 +130,21 @@ const Amenities = ({ openModal }) => {
           ))}
         </div>
 
-        {/* Navigation Buttons - Hidden on screens smaller than 768px */}
+        {/* Navigation Buttons */}
         <button
           onClick={prevSlide}
-          className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 bg-[#e5fff6] border green-border p-3 rounded-full shadow-md w-12 h-12 cursor-pointer opacity-80 hover:opacity-100 transition-all"
+          className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 bg-[#e5fff6] border green-border p-3 rounded-full shadow-sm w-12 h-12 cursor-pointer opacity-80 hover:opacity-100 transition-all"
         >
           <ArrowLeft className="w-6 h-6 text-gray-700" />
         </button>
 
         <button
           onClick={nextSlide}
-          className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 bg-[#e5fff6] border green-border p-3 rounded-full shadow-md w-12 h-12 cursor-pointer opacity-80 hover:opacity-100 transition-all"
+          className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 bg-[#e5fff6] border green-border p-3 rounded-full shadow-md w-12 h-12 cursor-pointer opacity-80 hover:opacity-100 transition-all"
         >
           <ArrowRight className="w-6 h-6 text-gray-700" />
         </button>
       </div>
-
     </div>
   );
 };
